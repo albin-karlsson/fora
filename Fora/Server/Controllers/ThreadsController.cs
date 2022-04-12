@@ -38,6 +38,7 @@ namespace Fora.Server.Controllers
         public async Task Post([FromBody] ThreadDto thread, [FromQuery] string token)
         {
             // First: Validate token
+
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
             // var user = _context.users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
@@ -66,9 +67,8 @@ namespace Fora.Server.Controllers
         public void Put([FromRoute] int id, [FromBody] ThreadModel updatedThread, [FromQuery] string token)
         {
             // First: Validate token
+
             var thread = _context.Threads.FirstOrDefault(t => t.Id == id);
-
-
         }
 
         // DELETE api/<ThreadsController>/5
