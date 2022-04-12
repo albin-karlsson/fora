@@ -59,6 +59,7 @@ namespace Fora.Server.Controllers
         }
 
 
+        // MessageDto is a simplified MessageModel with Message and ThreadId only
         // POST api/<MessagesController>
         [HttpPost]
         public async Task Post([FromBody] MessageDto message, [FromQuery] string token)
@@ -106,7 +107,7 @@ namespace Fora.Server.Controllers
             {
                 // Update the content of that message
                 messageToUpdate.Message = updatedMessage.Message;
-                // Todo: Also set the a message bool property "Edited" to True
+                // Todo: Set the a message bool property "Edited" to True
 
                 // Save the updated message to the database
                 _context.Messages.Update(messageToUpdate);
