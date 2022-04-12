@@ -66,6 +66,7 @@ namespace Fora.Server.Controllers
         public async Task Post([FromBody] MessageDto message, [FromQuery] string token)
         {
             // First: Validate token
+
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
             // var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
@@ -98,7 +99,7 @@ namespace Fora.Server.Controllers
         [HttpPut("{id}")]
         public async Task Put([FromRoute] int id, [FromBody] MessageModel updatedMessage, [FromQuery] string token)
         {
-            // First: Validate token!
+            // First: Validate token
 
             // Get the message we want to update from the db
             var messageToUpdate = _context.Messages.FirstOrDefault(m => m.Id == id);
