@@ -42,8 +42,8 @@ namespace Fora.Server.Controllers
             // First: Validate token
             // We're constructing the result by projecting the data into the form we want to avoid circular references
 
-            // Project the user into a user with the data we want and need (without circular references)
-            // If the user would have messages that in turn has users (that we get by default), we would get a circular reference error
+            // Project the user in each message object into a user with the data we want and need (without circular references)
+            // If the user would have messages that in turn have a user (that we get by default), we would get a circular reference error
             var messages = _context.Messages.Include(m => m.User).Where(m => m.ThreadId == id).Select(m => new MessageModel
             {
                 Message = m.Message,
