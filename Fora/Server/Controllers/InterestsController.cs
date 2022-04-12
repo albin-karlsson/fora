@@ -34,6 +34,7 @@ namespace Fora.Server.Controllers
         public async Task Post([FromBody] InterestModel interest, [FromQuery] string token)
         {
             // First: Validate token
+
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
             // var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity

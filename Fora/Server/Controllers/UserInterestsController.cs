@@ -18,8 +18,10 @@ namespace Fora.Server.Controllers
         // Get all UserInterests (interests a user has) for a specific user (by the user's id)
         // GET api/<UserInterestsController>/5
         [HttpGet("{id}")]
-        public List<InterestModel> Get(int id)
+        public List<InterestModel> Get(int id, [FromQuery] string token)
         {
+            // First: Validate token
+
             return _context.Interests.Where(i => i.UserInterests.Any(ui => ui.UserId == id)).ToList();
         }
 
@@ -52,17 +54,21 @@ namespace Fora.Server.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(int id, [FromQuery] string token)
         {
+            // First: Validate token
+
             // Get user
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
             // var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
 
+            // If a user was found
             if (user != null)
             {
                 // Get UserInterest to remove
                 var userInterestToRemove = _context.UserInterests
                     .FirstOrDefault(ui => ui.InterestId == id && ui.UserId == user.Id);
 
+                // If a UserInterest was found
                 if (userInterestToRemove != null)
                 {
                     _context.UserInterests.Remove(userInterestToRemove);
