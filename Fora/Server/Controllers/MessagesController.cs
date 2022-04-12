@@ -37,21 +37,22 @@ namespace Fora.Server.Controllers
         // This method gets all messages in a specific thread by passing the thread id as a query string parameter
         [HttpGet]
         [Route("thread")]
-        public List<MessageModel> GetThreadMessages([FromQuery] int id)
+        public List<MessageModel> GetThreadMessages([FromQuery] int id, [FromQuery] string token)
         {
             // First: Validate token
-            // We're constructing (projecting) the result to the data type we want to avoid circular references
+            // We're constructing the result by projecting the data into the form we want to avoid circular references
 
-            // Get all messages pertaining to a thread, make sure to project it into the object that we want to avoid circular references
+            // Project the user into a user with the data we want and need (without circular references)
+            // If the user would have messages that in turn has users (that we get by default), we would get a circular reference error
             var messages = _context.Messages.Include(m => m.User).Where(m => m.ThreadId == id).Select(m => new MessageModel
             {
                 Message = m.Message,
-                User = new UserModel() // Project the user into a user with the data we want (without circular references)
+                User = new UserModel()
                 {
                     Id = m.User.Id,
                     Username = m.User.Username,
                     Banned = m.User.Banned,
-                    Deleted = m.User.Deleted
+                    Deleted = m.User.Deleted,
                 }
             }).ToList();
 
