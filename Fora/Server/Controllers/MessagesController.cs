@@ -40,7 +40,7 @@ namespace Fora.Server.Controllers
         public List<MessageModel> GetThreadMessages([FromQuery] int id)
         {
             // First: Validate token
-            // We're constructing (projecting) the result to the data type we want to void circular references
+            // We're constructing (projecting) the result to the data type we want to avoid circular references
 
             // Get all messages pertaining to a thread, make sure to project it into the object that we want to avoid circular references
             var messages = _context.Messages.Include(m => m.User).Where(m => m.ThreadId == id).Select(t => new MessageModel
@@ -65,6 +65,7 @@ namespace Fora.Server.Controllers
         {
             // First: Validate token
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
+            var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
 
             // If a user with the specified token was found

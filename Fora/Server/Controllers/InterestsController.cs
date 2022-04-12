@@ -35,6 +35,7 @@ namespace Fora.Server.Controllers
         {
             // First: Validate token
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
+            // var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
 
             if (user != null)
