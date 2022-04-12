@@ -65,7 +65,7 @@ namespace Fora.Server.Controllers
         {
             // First: Validate token
             // var identityUser = _signInManager.UserManager.FirstOrDefault(u => u.Token == token);
-            var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
+            // var user = _context.Users.FirstOrDefault(u => u.Username == identityUser.UserName);
             var user = _context.Users.FirstOrDefault(u => u.Username == "Test"); // Dummy for rows above since no identity
 
             // If a user with the specified token was found
@@ -106,7 +106,7 @@ namespace Fora.Server.Controllers
             {
                 // Update the content of that message
                 messageToUpdate.Message = updatedMessage.Message;
-                // Todo: also set the a message bool property "Edited" to True
+                // Todo: Also set the a message bool property "Edited" to True
 
                 // Save the updated message to the database
                 _context.Messages.Update(messageToUpdate);
@@ -118,7 +118,7 @@ namespace Fora.Server.Controllers
         [HttpDelete("{id}")]
         public async Task Delete([FromRoute] int id, [FromQuery] string token)
         {
-
+            // Todo: Set the message bool property "Deleted" to True
         }
     }
 }
