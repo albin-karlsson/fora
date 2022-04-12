@@ -43,15 +43,15 @@ namespace Fora.Server.Controllers
             // We're constructing (projecting) the result to the data type we want to avoid circular references
 
             // Get all messages pertaining to a thread, make sure to project it into the object that we want to avoid circular references
-            var messages = _context.Messages.Include(m => m.User).Where(m => m.ThreadId == id).Select(t => new MessageModel
+            var messages = _context.Messages.Include(m => m.User).Where(m => m.ThreadId == id).Select(m => new MessageModel
             {
-                Message = t.Message,
+                Message = m.Message,
                 User = new UserModel() // Project the user into a user with the data we want (without circular references)
                 {
-                    Id = t.User.Id,
-                    Username = t.User.Username,
-                    Banned = t.User.Banned,
-                    Deleted = t.User.Deleted
+                    Id = m.User.Id,
+                    Username = m.User.Username,
+                    Banned = m.User.Banned,
+                    Deleted = m.User.Deleted
                 }
             }).ToList();
 
